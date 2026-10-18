@@ -101,6 +101,24 @@ which is the one that really matters.
 Why does the server recompute the total? Open DevTools and change a price in the cart's localStorage,
 then check out. The order still has the correct price.
 
+## Step 7: Testing the backend
+
+The tests in [backend/tests/](backend/tests/) double as **executable documentation**: each test name states a rule
+the API guarantees ("customer cannot see someone else's order", "order keeps old price after menu change").
+
+| Concept | Where |
+| --- | --- |
+| Fixtures, `yield` teardown, scopes, fixture factories | [tests/conftest.py](backend/tests/conftest.py) |
+| Unit tests (no HTTP, no DB) | [tests/test_security.py](backend/tests/test_security.py) |
+| API tests with `TestClient`, Arrange / Act / Assert | [tests/test_auth.py](backend/tests/test_auth.py), [tests/test_menu.py](backend/tests/test_menu.py) |
+| `@pytest.mark.parametrize` (one test, many cases) | [tests/test_auth.py](backend/tests/test_auth.py), [tests/test_admin.py](backend/tests/test_admin.py) |
+| Testing security rules (401 vs 403 vs 404) | [tests/test_orders.py](backend/tests/test_orders.py), [tests/test_admin.py](backend/tests/test_admin.py) |
+| Checking the database directly, not just the response | `sync_db` usage in [tests/test_orders.py](backend/tests/test_orders.py) |
+
+**Try it: prove the tests work.** Break something on purpose, e.g. in [routers/orders.py](backend/app/routers/orders.py)
+change `total += menu_item["price"] * line.quantity` to `total += menu_item["price"]`, run `pytest`, and watch which
+tests fail and why. Then undo it (`git restore backend/app/routers/orders.py`).
+
 ---
 
 ## Exercises (roughly easiest → hardest)
@@ -112,4 +130,4 @@ then check out. The order still has the correct price.
 5. **Pagination:** add `skip`/`limit` query params to `GET /admin/orders` and Next/Prev links.
 6. **Caching:** wrap `getMenu` in `"use cache"` with `cacheTag("menu")` and call `updateTag("menu")` from the admin actions. (Note: then `next build` needs the API running.)
 7. **Ratings:** add a `reviews` collection. Should reviews be embedded in menu items or referenced? Why?
-8. **Tests:** add `pytest` + `httpx` tests for the backend using FastAPI's `TestClient`.
+8. **Tests first:** pick exercise 1 or 3 and write the test *before* the code. Watch it fail, then make it pass (this is TDD).

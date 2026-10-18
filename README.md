@@ -74,9 +74,29 @@ Open **<http://localhost:3000>**.
 | ----------- | ------------------------------- | ---------------------------------- |
 | `backend/`  | `uvicorn app.main:app --reload` | API with auto-reload on file save  |
 | `backend/`  | `python seed.py`                | Reset menu items, (re)create admin |
+| `backend/`  | `pytest`                        | Run the backend tests              |
 | `frontend/` | `npm run dev`                   | Dev server with hot reload         |
 | `frontend/` | `npm run build`                 | Production build + type check      |
 | `frontend/` | `npm run lint`                  | ESLint                             |
+
+## Running the backend tests
+
+```powershell
+cd backend
+.venv\Scripts\activate
+pip install -r requirements-dev.txt   # one time: pytest + httpx2
+pytest                                # or: pytest -v   /   pytest tests/test_orders.py
+```
+
+Tests talk to a real MongoDB but use a **separate database** named `<DB_NAME>_test` (e.g. `food_ordering_test`),
+emptied before each test and deleted afterwards. Your real data is never touched.
+By default they use the `MONGODB_URI` from `.env` (your Atlas cluster). To use a different server, set
+`TEST_MONGODB_URI`, e.g. a local Docker MongoDB:
+
+```powershell
+docker run -d --rm --name test-mongo -p 27099:27017 mongo:8
+$env:TEST_MONGODB_URI = "mongodb://localhost:27099"; pytest
+```
 
 ## Troubleshooting
 

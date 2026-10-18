@@ -59,7 +59,11 @@ async def place_order(body: OrderCreate, db: Db, user: CurrentUser):
 @router.get("", response_model=list[OrderOut])
 async def my_orders(db: Db, user: CurrentUser):
     # This query uses the compound index (user_id, created_at) from db.py.
-    cursor = db["orders"].find({"user_id": to_object_id(user["id"])}).sort("created_at", -1)
+    # _id is a tie-breaker: ObjectIds increase over time, so two orders placed in
+    # the same millisecond still come back in a predictable order.
+    cursor = db["orders"].find({"user_id": to_object_id(user["id"])}).sort(
+        [("created_at", -1), ("_id", -1)]
+    )
     return [doc_to_dict(d) for d in await cursor.to_list(200)]
 
 

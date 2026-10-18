@@ -21,7 +21,7 @@ router = APIRouter(prefix="/admin", tags=["admin"], dependencies=[Depends(requir
 @router.get("/orders", response_model=list[OrderOut])
 async def all_orders(db: Db, status_filter: OrderStatus | None = None):
     filter_ = {"status": status_filter} if status_filter else {}
-    cursor = db["orders"].find(filter_).sort("created_at", -1)
+    cursor = db["orders"].find(filter_).sort([("created_at", -1), ("_id", -1)])
     return [doc_to_dict(d) for d in await cursor.to_list(500)]
 
 
