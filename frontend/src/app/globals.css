@@ -1,0 +1,18 @@
+@import "tailwindcss";
+
+/* Tailwind v4 is configured in CSS. @theme defines design tokens that become
+   utility classes, e.g. --font-sans powers the `font-sans` class. */
+@theme inline {
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+body {
+  background: #fafaf9; /* stone-50 */
+  color: #1c1917; /* stone-900 */
+}
+
+/* Shared form-field style used by the inputs across the app. */
+@utility field {
+  @apply w-full rounded-lg border border-stone-300 bg-white px-3 py-2 outline-none focus:border-orange-500 focus:ring-2 focus:ring-orange-200;
+}
