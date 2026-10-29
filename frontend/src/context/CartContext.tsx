@@ -129,7 +129,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
   return <CartContext value={value}>{children}</CartContext>;
 }
 
-export function useCart(): CartContextValue {
+export function useCart(): CartContextValue { // a custome hook that wraps useContext with a helpful error message
   const ctx = useContext(CartContext);
   if (!ctx) throw new Error("useCart must be used inside <CartProvider>");
   return ctx;
