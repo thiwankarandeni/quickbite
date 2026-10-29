@@ -66,6 +66,10 @@ export function MenuItemForm({ action, categories, item }: Props) {
         <input name="available" type="checkbox" defaultChecked={item?.available ?? true} />
         <span className="text-sm">Available to order</span>
       </label>
+      <label className="flex items-center gap-2">
+        <input name="spicy" type="checkbox" defaultChecked={item?.spicy ?? false} />
+        <span className="text-sm">Spicy</span>
+      </label>
 
       <FormError message={state?.error} />
       <div className="flex items-center gap-4">

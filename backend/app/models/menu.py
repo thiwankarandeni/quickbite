@@ -22,6 +22,7 @@ class MenuItemBase(BaseModel):
     category: str
     image_url: HttpUrl | None = None
     available: bool = True
+    spicy: bool = False
 
 
 class MenuItemCreate(MenuItemBase):
@@ -35,6 +36,7 @@ class MenuItemUpdate(BaseModel):
     category: str | None = None
     image_url: HttpUrl | None = None
     available: bool | None = None
+    spicy: bool | None = None
 
 
 class MenuItemOut(MenuItemBase):

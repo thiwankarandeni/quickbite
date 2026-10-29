@@ -7,6 +7,7 @@ import { formatPrice } from "@/lib/format";
 import type { MenuItem } from "@/lib/types";
 
 import { AddToCartButton } from "./AddToCartButton";
+import { SpicyBadge } from "./SpicyBadge";
 
 export function MenuItemCard({ item }: { item: MenuItem }) {
   return (
@@ -26,9 +27,12 @@ export function MenuItemCard({ item }: { item: MenuItem }) {
       </Link>
       <div className="flex flex-1 flex-col gap-2 p-4">
         <div className="flex items-start justify-between gap-2">
-          <Link href={`/menu/${item.id}`} className="font-semibold hover:text-orange-600">
-            {item.name}
-          </Link>
+          <div className="flex flex-wrap items-center gap-2">
+            <Link href={`/menu/${item.id}`} className="font-semibold hover:text-orange-600">
+              {item.name}
+            </Link>
+            {item.spicy && <SpicyBadge />}
+          </div>
           <span className="font-semibold text-orange-600">{formatPrice(item.price)}</span>
         </div>
         <p className="flex-1 text-sm text-stone-600">{item.description}</p>

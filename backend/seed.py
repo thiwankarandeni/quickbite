@@ -32,8 +32,8 @@ MENU = [
      "description": "Tomato, mozzarella, fresh basil.",
      "image_url": img("photo-1574071318508-1cdbab80d002")},
     {"name": "Pepperoni Pizza", "category": "pizza", "price": 13.5,
-     "description": "Loaded with pepperoni and mozzarella.",
-     "image_url": img("photo-1628840042765-356cda07504e")},
+         "description": "Loaded with pepperoni and mozzarella.",
+         "image_url": img("photo-1628840042765-356cda07504e"), "spicy": True},
     {"name": "Caesar Salad", "category": "salads", "price": 8.0,
      "description": "Romaine, parmesan, croutons, Caesar dressing.",
      "image_url": img("photo-1550304943-4f24f54ddde9")},
@@ -51,7 +51,7 @@ MENU = [
      "image_url": img("photo-1606313564200-e75d5e30476c")},
     {"name": "Cheesecake", "category": "desserts", "price": 5.0,
      "description": "New York style with berry compote.",
-     "image_url": img("photo-1533134242443-d4fd215305ad")},
+     "image_url": img("photo-1533134242443-d4fd215305ad")},    
 ]
 
 

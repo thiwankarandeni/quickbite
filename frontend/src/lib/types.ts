@@ -19,6 +19,7 @@ export type MenuItem = {
   category: string;
   image_url: string | null;
   available: boolean;
+  spicy: boolean;
 };
 
 export type OrderStatus = "pending" | "preparing" | "ready" | "delivered" | "cancelled";

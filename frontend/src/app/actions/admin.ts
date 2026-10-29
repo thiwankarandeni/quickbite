@@ -21,6 +21,7 @@ function menuItemFromForm(formData: FormData) {
     image_url: imageUrl || null,
     // An unchecked checkbox is simply missing from FormData.
     available: formData.get("available") === "on",
+    spicy: formData.get("spicy") === "on",
   };
 }
 

@@ -6,6 +6,7 @@ import { notFound } from "next/navigation";
 import { Suspense } from "react";
 
 import { AddToCartButton } from "@/components/AddToCartButton";
+import { SpicyBadge } from "@/components/SpicyBadge";
 import { capitalize, formatPrice } from "@/lib/format";
 import { getMenuItem } from "@/lib/data";
 
@@ -35,9 +36,12 @@ async function MenuItemDetails({ params }: { params: PageProps<"/menu/[id]">["pa
         )}
       </div>
       <div className="space-y-4">
-        <span className="text-sm font-medium uppercase tracking-wide text-orange-600">
-          {capitalize(item.category)}
-        </span>
+        <div className="flex items-center gap-3">
+          <span className="text-sm font-medium uppercase tracking-wide text-orange-600">
+            {capitalize(item.category)}
+          </span>
+          {item.spicy && <SpicyBadge />}
+        </div>
         <h1 className="text-3xl font-bold">{item.name}</h1>
         <p className="text-stone-600">{item.description}</p>
         <p className="text-2xl font-semibold">{formatPrice(item.price)}</p>
